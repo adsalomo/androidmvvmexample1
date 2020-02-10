@@ -58,7 +58,7 @@
                 android:drawableStart="@android:drawable/btn_star"
                 android:drawableLeft="@android:drawable/btn_star"
                 android:gravity="center"
-                android:text="@{`` + repo.stars}"
+                android:text="@{`` + repo.starts}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="5" />
