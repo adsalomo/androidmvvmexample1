@@ -109,7 +109,7 @@ public class RepoRepository {
             }
 
             @Override
-            @Transaction
+            //@Transaction
             protected void saveCallResult(List<Contributor> item) {
                 for (Contributor contributor : item) {
                     contributor.setRepoName(name);

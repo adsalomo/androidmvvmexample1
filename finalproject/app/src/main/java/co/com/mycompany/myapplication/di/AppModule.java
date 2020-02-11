@@ -35,7 +35,7 @@ public class AppModule {
 
     @Singleton
     @Provides
-    GitHubDb provideDB(Application application) {
+    GitHubDb provideDb(Application application) {
         return Room.databaseBuilder(application, GitHubDb.class, "github.db").build();
     }
 

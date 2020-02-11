@@ -30,7 +30,7 @@ public class UserViewModel extends ViewModel {
             public LiveData<Resource<User>> apply(String login) {
                 if (login == null) {
                     return AbsentLiveData.create();
-                } else  {
+                } else {
                     return userRepository.loadUser(login);
                 }
             }
@@ -57,5 +57,12 @@ public class UserViewModel extends ViewModel {
 
     public LiveData<Resource<List<Repo>>> getRespositories() {
         return this.respositories;
+    }
+
+
+    public void retry() {
+        if (this.login.getValue() != null) {
+            this.login.setValue(this.login.getValue());
+        }
     }
 }

@@ -14,7 +14,7 @@ import co.com.mycompany.myapplication.model.User;
 @Database(entities = {User.class, Repo.class, Contributor.class, RepoSearchResult.class}, version = 1)
 public abstract class GitHubDb extends RoomDatabase {
 
-    abstract public UserDao userDao();
+    public abstract UserDao userDao();
 
-    abstract public RepoDao repoDao();
+    public abstract RepoDao repoDao();
 }

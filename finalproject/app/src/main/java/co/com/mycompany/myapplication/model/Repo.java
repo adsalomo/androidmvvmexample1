@@ -13,7 +13,6 @@ public class Repo {
 
     public static final int UNKNOWN_ID = -1;
 
-    @SerializedName("id")
     public final int id;
 
     @SerializedName("name")
@@ -51,7 +50,7 @@ public class Repo {
         @SerializedName("url")
         public final String url;
 
-        public Owner(String login, String url) {
+        public Owner(@NonNull String login, String url) {
             this.login = login;
             this.url = url;
         }

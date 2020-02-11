@@ -103,7 +103,7 @@ public class SearchViewModel extends ViewModel {
         private final RepoRepository repository;
         boolean hasMore;
 
-        public NextPageHandle(RepoRepository repository) {
+        NextPageHandle(RepoRepository repository) {
             this.repository = repository;
             reset();
         }

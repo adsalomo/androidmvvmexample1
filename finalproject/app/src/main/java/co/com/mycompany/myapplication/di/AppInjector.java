@@ -18,12 +18,11 @@ import dagger.android.support.HasSupportFragmentInjector;
 public class AppInjector {
 
     private AppInjector() {
-
     }
 
     public static void init(GitHubApp gitHubApp) {
         // Clase AppComponent.java
-        //DaggerAppComponent.builder.application(gitHubApp).build().inject(gitHubApp);
+        DaggerAppComponent.builder().application(gitHubApp).build().inject(gitHubApp);
 
         gitHubApp.registerActivityLifecycleCallbacks(new Application.ActivityLifecycleCallbacks() {
             @Override

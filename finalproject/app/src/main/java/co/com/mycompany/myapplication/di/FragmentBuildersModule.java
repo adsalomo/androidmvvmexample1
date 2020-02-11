@@ -14,11 +14,11 @@ public abstract class FragmentBuildersModule {
      * @return
      */
     @ContributesAndroidInjector
-    abstract RepoFragment contributerRepoFragment();
+    abstract RepoFragment contributeRepoFragment();
 
     @ContributesAndroidInjector
-    abstract UserFragment contributerUserFragment();
+    abstract UserFragment contributeUserFragment();
 
     @ContributesAndroidInjector
-    abstract SearchFragment contributerSearchFragment();
+    abstract SearchFragment contributeSearchFragment();
 }

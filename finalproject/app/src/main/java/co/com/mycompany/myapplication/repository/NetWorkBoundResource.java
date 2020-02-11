@@ -68,7 +68,7 @@ public abstract class NetWorkBoundResource<ResultType, RequestType> {
                     }
                 });
             } else {
-                onFetchFailed();;
+                onFetchFailed();
                 result.addSource(dbSource, newData -> {
                     setValue(Resource.error(response.errorMessage, newData));
                 });

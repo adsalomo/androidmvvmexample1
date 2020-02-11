@@ -30,6 +30,7 @@ public class FetchNextSearchPageTask implements Runnable {
         RepoSearchResult current = db.repoDao().findSearchResult(query);
         if (current == null) {
             liveData.postValue(null);
+            return;
         }
 
         final Integer nextPage = current.next;
@@ -37,8 +38,10 @@ public class FetchNextSearchPageTask implements Runnable {
             liveData.postValue(Resource.success(false));
             return;
         }
+
         try {
             Response<RepoSearchResponse> response = webServiceApi.searchRepos(query, nextPage).execute();
+
             ApiResponse<RepoSearchResponse> apiResponse = new ApiResponse<>(response);
             if (apiResponse.isSuccessFull()) {
                 List<Integer> ids = new ArrayList<>();

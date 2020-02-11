@@ -1,23 +1,32 @@
 package co.com.mycompany.myapplication.ui.search;
 
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.IBinder;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethod;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -26,6 +35,7 @@ import co.com.mycompany.myapplication.binding.FragmentDataBindingComponent;
 import co.com.mycompany.myapplication.databinding.FragmentSearchBinding;
 import co.com.mycompany.myapplication.di.Injectable;
 import co.com.mycompany.myapplication.model.Repo;
+import co.com.mycompany.myapplication.repository.Resource;
 import co.com.mycompany.myapplication.ui.common.NavigationController;
 import co.com.mycompany.myapplication.ui.common.RepoListAdapter;
 import co.com.mycompany.myapplication.ui.common.RetryCall;
@@ -131,5 +141,40 @@ public class SearchFragment extends Fragment implements Injectable {
                 }
             }
         });
+
+        searchViewModel.getResults().observe(this, new Observer<Resource<List<Repo>>>() {
+            @Override
+            public void onChanged(Resource<List<Repo>> listResource) {
+                binding.get().setSearchResource(listResource);
+                binding.get().setResultCount(listResource == null
+                        || listResource.data == null ? 0 : listResource.data.size());
+                adapter.get().replace(listResource == null ? null : listResource.data);
+                binding.get().executePendingBindings();
+            }
+        });
+
+        searchViewModel.getLoadMoreStatus().observe(this, new Observer<SearchViewModel.LoadMoreState>() {
+            @Override
+            public void onChanged(SearchViewModel.LoadMoreState loadMoreState) {
+                if (loadMoreState == null) {
+                    binding.get().setLoadingMore(false);
+                } else {
+                    binding.get().setLoadingMore(loadMoreState.isRunning());
+                    String error = loadMoreState.getErrorMessageIfNoHandle();
+                    if (error != null) {
+                        Log.d("TAG1", "Error on LoadMore");
+                    }
+                }
+                binding.get().executePendingBindings();
+            }
+        });
+    }
+
+    private void dissmissKeyBoard(IBinder windowToken) {
+        FragmentActivity activity = getActivity();
+        if (activity != null) {
+            InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(windowToken, 0);
+        }
     }
 }

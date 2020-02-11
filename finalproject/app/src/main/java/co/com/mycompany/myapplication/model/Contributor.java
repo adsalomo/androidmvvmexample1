@@ -17,10 +17,10 @@ public class Contributor {
     @NonNull
     public final String login;
 
-    @SerializedName("login")
+    @SerializedName("contributions")
     public final int contributions;
 
-    @SerializedName("login")
+    @SerializedName("avatar_url")
     public final String avatarUrl;
 
     @NonNull

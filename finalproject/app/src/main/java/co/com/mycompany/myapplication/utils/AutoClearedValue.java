@@ -9,7 +9,8 @@ public class AutoClearedValue<T> {
 
     public AutoClearedValue(Fragment fragment, T value) {
         // Limpie referencias
-        FragmentManager fragmentManager = fragment.getChildFragmentManager();
+        FragmentManager fragmentManager = fragment.getFragmentManager();
+
         fragmentManager.registerFragmentLifecycleCallbacks(
                 new FragmentManager.FragmentLifecycleCallbacks() {
                     @Override
